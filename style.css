@@ -160,17 +160,6 @@ body.light-mode .btn-home:focus-visible {
     color: #d48c00;
 }
 
-body.light-mode .btn-home:last-child {
-    background: #5865f2;
-    color: #fff;
-    border-color: #5865f2;
-}
-
-body.light-mode .btn-home:last-child:hover {
-    background: #6773f5;
-    color: #fff;
-}
-
 body.light-mode .btn-home-small {
     background: rgba(0, 0, 0, 0.04);
     border: 1px solid rgba(0, 0, 0, 0.06);
@@ -340,6 +329,53 @@ body.light-mode .rps-btn:hover {
     border-color: #d48c00;
 }
 
+body.light-mode .ng-mode-btn {
+    color: #333;
+    border-color: #aaa;
+}
+body.light-mode .ng-mode-btn[data-mode="normal"] {
+    color: #2e7d32;
+    border-color: #2e7d32;
+}
+body.light-mode .ng-mode-btn[data-mode="normal"].active {
+    background: rgba(46, 125, 50, 0.12);
+}
+body.light-mode .ng-mode-btn[data-mode="medium"] {
+    color: #b8860b;
+    border-color: #b8860b;
+}
+body.light-mode .ng-mode-btn[data-mode="medium"].active {
+    background: rgba(184, 134, 11, 0.12);
+}
+body.light-mode .ng-mode-btn[data-mode="hard"] {
+    color: #c62828;
+    border-color: #c62828;
+}
+body.light-mode .ng-mode-btn[data-mode="hard"].active {
+    background: rgba(198, 40, 40, 0.12);
+}
+body.light-mode .ng-game-area.mode-normal {
+    background: rgba(46, 125, 50, 0.08);
+}
+body.light-mode .ng-game-area.mode-medium {
+    background: rgba(184, 134, 11, 0.08);
+}
+body.light-mode .ng-game-area.mode-hard {
+    background: rgba(198, 40, 40, 0.08);
+}
+body.light-mode .ng-info span {
+    background: rgba(0, 0, 0, 0.04);
+    color: #333;
+}
+body.light-mode .ng-input-group input {
+    background: rgba(0, 0, 0, 0.03);
+    color: #1a1a1a;
+    border-color: #ccc;
+}
+body.light-mode #ngMessage {
+    color: #333;
+}
+
 body.light-mode .setting-item {
     background: rgba(0, 0, 0, 0.02);
     border: 1px solid rgba(0, 0, 0, 0.04);
@@ -468,54 +504,22 @@ body.light-mode .greeting {
     color: #444;
 }
 
-/* ============================================================
-   NUMBER GUESSING – LIGHT MODE SUPPORT
-   ============================================================ */
-body.light-mode .ng-mode-btn {
-    color: #333;
-    border-color: #aaa;
+body.light-mode .social-buttons .btn-whatsapp {
+    background: #25d366;
+    color: #fff;
 }
-body.light-mode .ng-mode-btn[data-mode="normal"] {
-    color: #2e7d32;
-    border-color: #2e7d32;
+
+body.light-mode .social-buttons .btn-whatsapp:hover {
+    background: #1da851;
 }
-body.light-mode .ng-mode-btn[data-mode="normal"].active {
-    background: rgba(46, 125, 50, 0.12);
+
+body.light-mode .social-buttons .btn-discord {
+    background: #5865f2;
+    color: #fff;
 }
-body.light-mode .ng-mode-btn[data-mode="medium"] {
-    color: #b8860b;
-    border-color: #b8860b;
-}
-body.light-mode .ng-mode-btn[data-mode="medium"].active {
-    background: rgba(184, 134, 11, 0.12);
-}
-body.light-mode .ng-mode-btn[data-mode="hard"] {
-    color: #c62828;
-    border-color: #c62828;
-}
-body.light-mode .ng-mode-btn[data-mode="hard"].active {
-    background: rgba(198, 40, 40, 0.12);
-}
-body.light-mode .ng-game-area.mode-normal {
-    background: rgba(46, 125, 50, 0.08);
-}
-body.light-mode .ng-game-area.mode-medium {
-    background: rgba(184, 134, 11, 0.08);
-}
-body.light-mode .ng-game-area.mode-hard {
-    background: rgba(198, 40, 40, 0.08);
-}
-body.light-mode .ng-info span {
-    background: rgba(0, 0, 0, 0.04);
-    color: #333;
-}
-body.light-mode .ng-input-group input {
-    background: rgba(0, 0, 0, 0.03);
-    color: #1a1a1a;
-    border-color: #ccc;
-}
-body.light-mode #ngMessage {
-    color: #333;
+
+body.light-mode .social-buttons .btn-discord:hover {
+    background: #4752c4;
 }
 
 /* ============================================================
@@ -1376,7 +1380,7 @@ body.light-mode .toast .toast-close:hover {
     flex-wrap: wrap;
     justify-content: center;
     gap: 14px;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
 }
 
 .btn-home {
@@ -1415,16 +1419,60 @@ body.light-mode .toast .toast-close:hover {
     transform: scale(0.97);
 }
 
-.btn-home:last-child {
-    background: #5865f2;
-    color: #fff;
-    border-color: #5865f2;
+/* ============================================================
+   SOCIAL BUTTONS (Discord + WhatsApp)
+   ============================================================ */
+.social-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 4px;
+    margin-bottom: 32px;
 }
 
-.btn-home:last-child:hover {
-    background: #6773f5;
-    border-color: #6773f5;
+.social-buttons .btn-discord,
+.social-buttons .btn-whatsapp {
+    display: inline-block;
+    padding: 14px 32px;
+    border-radius: 60px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    text-align: center;
+    flex: 1 0 auto;
+    min-width: 200px;
+    border: none;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.15);
+}
+
+.social-buttons .btn-discord {
+    background: #5865f2;
     color: #fff;
+}
+
+.social-buttons .btn-discord:hover {
+    background: #6773f5;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 40px rgba(88, 101, 242, 0.35);
+}
+
+.social-buttons .btn-whatsapp {
+    background: #25d366;
+    color: #fff;
+}
+
+.social-buttons .btn-whatsapp:hover {
+    background: #1da851;
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 14px 40px rgba(37, 211, 102, 0.35);
+}
+
+.social-buttons a:active {
+    transform: scale(0.97);
 }
 
 /* ============================================================
@@ -1591,7 +1639,7 @@ body.light-mode .toast .toast-close:hover {
 }
 
 /* ============================================================
-   PERATURAN (RULES) – A1–A10 + B1–B4 + C1–C2
+   PERATURAN (RULES)
    ============================================================ */
 .rules-container {
     display: flex;
@@ -1785,7 +1833,7 @@ body.light-mode .toast .toast-close:hover {
 }
 
 /* ============================================================
-   GAMES – ChillHub Minigames (Tic-Tac-Toe, RPS, Number Guessing)
+   GAMES
    ============================================================ */
 .games-tabs {
     display: flex;
@@ -1859,7 +1907,6 @@ body.light-mode .toast .toast-close:hover {
     color: #f4a300;
 }
 
-/* Tic-Tac-Toe */
 #tttBoard {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1908,7 +1955,6 @@ body.light-mode .toast .toast-close:hover {
     }
 }
 
-/* Rock Paper Scissors */
 .rps-choices {
     display: flex;
     gap: 16px;
@@ -2013,7 +2059,7 @@ body.light-mode .btn-game-reset:hover {
 }
 
 /* ============================================================
-   NUMBER GUESSING GAME (NEW)
+   NUMBER GUESSING
    ============================================================ */
 .ng-mode-selector {
     display: flex;
@@ -2175,7 +2221,7 @@ body.light-mode .btn-game-reset:hover {
 }
 
 /* ============================================================
-   REVIEWS
+   REVIEWS – dengan klik untuk tunjuk Edit/Delete
    ============================================================ */
 .reviews-container {
     display: flex;
@@ -2227,12 +2273,15 @@ body.light-mode .btn-game-reset:hover {
     border: 1px solid rgba(255, 255, 255, 0.04);
     border-radius: 12px;
     padding: 16px 20px;
-    transition: border-color 0.3s, transform 0.2s;
+    transition: border-color 0.3s, transform 0.2s, box-shadow 0.3s;
+    cursor: pointer;
+    position: relative;
 }
 
 .review-item:hover {
     border-color: rgba(244, 163, 0, 0.1);
     transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .review-item .review-header {
@@ -2269,9 +2318,27 @@ body.light-mode .btn-game-reset:hover {
 }
 
 .review-item .review-actions {
-    display: flex;
+    display: none;
     gap: 10px;
-    margin-top: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    animation: slideDown 0.3s ease forwards;
+}
+
+.review-item .review-actions.show {
+    display: flex;
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .review-item .review-actions button {
@@ -2280,7 +2347,7 @@ body.light-mode .btn-game-reset:hover {
     color: #888;
     font-size: 13px;
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 4px 12px;
     border-radius: 6px;
     transition: all 0.2s;
     font-family: 'Inter', sans-serif;
@@ -2294,6 +2361,29 @@ body.light-mode .btn-game-reset:hover {
 .review-item .review-actions .delete-btn:hover {
     color: #ef5350;
     background: rgba(239, 83, 80, 0.08);
+}
+
+.review-item .click-hint {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+    display: block;
+}
+
+body.light-mode .review-item .click-hint {
+    color: #999;
+}
+
+body.light-mode .review-item .review-actions {
+    border-top-color: rgba(0, 0, 0, 0.06);
+}
+
+body.light-mode .review-item {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+body.light-mode .review-item:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
 }
 
 .empty-state {
@@ -2627,6 +2717,14 @@ body.light-mode .btn-game-reset:hover {
         flex: 1 1 100%;
     }
 
+    .social-buttons .btn-discord,
+    .social-buttons .btn-whatsapp {
+        font-size: 14px;
+        padding: 12px 24px;
+        min-width: 150px;
+        flex: 1 1 100%;
+    }
+
     .staff-grid {
         grid-template-columns: 1fr;
     }
@@ -2951,6 +3049,13 @@ body.light-mode .btn-game-reset:hover {
     .ng-game-area {
         padding: 14px;
     }
+
+    .social-buttons .btn-discord,
+    .social-buttons .btn-whatsapp {
+        font-size: 13px;
+        padding: 10px 20px;
+        min-width: 120px;
+    }
 }
 
 /* ============================================================
@@ -2974,6 +3079,9 @@ body.light-mode .btn-game-reset:hover {
         animation: none !important;
     }
     .ttt-cell.win {
+        animation: none !important;
+    }
+    .review-item .review-actions {
         animation: none !important;
     }
 }
