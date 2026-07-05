@@ -1,41 +1,703 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO Meta Tags -->
     <title>ChillHub Community</title>
+    <meta name="description" content="ChillHub Community – Multifunctional Discord community for Gaming, Learning, and Socializing. Join us today!" />
+    <meta name="keywords" content="ChillHub, Community, Gaming, Learning, Discord, Events, Academy, Reviews, Games" />
+    <meta name="author" content="ChillHub SecEra 2026" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://chillhub.com" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:title" content="ChillHub Community" />
+    <meta property="og:description" content="Join ChillHub Community – Fun & Learn at the same time!" />
+    <meta property="og:image" content="https://chillhub.com/og-image.png" />
+    <meta property="og:url" content="https://chillhub.com" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ChillHub Community" />
+    <meta name="twitter:description" content="Join ChillHub Community – Fun & Learn at the same time!" />
+
+    <!-- PWA manifest -->
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#0b0b0b" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
 </head>
 
-<body style="margin:0; background:#0B0B0B; color:white; font-family:Arial, sans-serif;">
+<body>
 
-    <header style="padding:20px; border-bottom:1px solid #333;">
-        <h2 style="color:#F4A300;">✈️ ChillHub Community</h2>
-    </header>
+    <!-- ============================================================ -->
+    <!-- STICKY NAVIGATION BAR                                         -->
+    <!-- ============================================================ -->
+    <nav class="sticky-nav" id="stickyNav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="nav-logo" aria-hidden="true">✈️</span>
+                <span class="nav-title">ChillHubWeb</span>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+            <ul class="nav-links" id="navLinks" role="menubar">
+                <li role="none"><a href="#" data-page="homePage" role="menuitem">🏠 Home</a></li>
+                <li role="none"><a href="#" data-page="aboutFaqPage" role="menuitem">ℹ️ About &amp; FAQ</a></li>
+                <li role="none"><a href="#" data-page="chrpgPage" role="menuitem">📜 Rules</a></li>
+                <li role="none"><a href="#" data-page="chstaffPage" role="menuitem">👥 Staff</a></li>
+                <li role="none"><a href="#" data-page="gamesPage" role="menuitem">🎮 Games</a></li>
+                <li role="none"><a href="#" data-page="reviewsPage" role="menuitem">⭐ Feedback &amp; Review</a></li>
+                <li role="none"><a href="#" data-page="settingsPage" role="menuitem">⚙️ Settings</a></li>
+                <li role="none"><a href="#" data-page="reportPage" role="menuitem">⚖️ Report &amp; Appeal</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <section style="text-align:center; padding:100px 20px;">
-        <h1 style="font-size:50px;">
-            Your journey with us starts here.
-        </h1>
+    <!-- ============================================================ -->
+    <!-- BACK TO TOP BUTTON                                            -->
+    <!-- ============================================================ -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
 
-        <p style="color:#bfbfbf; font-size:20px;">
-            Connect with people worldwide through gaming, socializing, learning, events, and a safe community experience.
-        </p>
+    <!-- ============================================================ -->
+    <!-- LOADING SPINNER (OVERLAY)                                     -->
+    <!-- ============================================================ -->
+    <div id="loadingSpinner" class="loading-spinner" role="status" aria-hidden="true">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
 
-        <br>
+    <!-- ============================================================ -->
+    <!-- TOAST NOTIFICATION CONTAINER                                  -->
+    <!-- ============================================================ -->
+    <div id="toastContainer" class="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-        <a href="#"
-        style="background:#F4A300; color:black; padding:15px 35px; text-decoration:none; border-radius:8px; font-weight:bold;">
-            Join Community
-        </a>
+    <!-- ============================================================ -->
+    <!-- MAIN CONTAINER                                               -->
+    <!-- ============================================================ -->
+    <div class="container" role="main">
 
-        &nbsp;&nbsp;
+        <!-- ============================================================ -->
+        <!-- HALAMAN 1: PENGESAHAN (VERIFICATION)                          -->
+        <!-- ============================================================ -->
+        <div id="verificationPage" class="page active" role="region" aria-labelledby="verify-title">
+            <div class="verification-header">
+                <h1 id="verify-title">✈️ ChillHub Community</h1>
+                <div class="tagline">By <span>ChillHub SecEra Of 2026</span></div>
+            </div>
 
-        <a href="rules.html"
-        style="border:2px solid #F4A300; color:#F4A300; padding:15px 35px; text-decoration:none; border-radius:8px;">
-            Read Rules
-        </a>
+            <div class="captcha-section">
+                <button class="btn-robot" id="robotBtn" aria-label="I am not a robot">🤖 I am not a robot</button>
 
-    </section>
+                <div class="captcha-question" id="captchaQuestion" role="group" aria-label="Captcha verification">
+                    <p>Select the color <strong>blue</strong> below:</p>
+                    <div class="color-options">
+                        <button class="color-btn blue" data-color="blue" aria-label="Blue"></button>
+                        <button class="color-btn red" data-color="red" aria-label="Red"></button>
+                        <button class="color-btn yellow" data-color="yellow" aria-label="Yellow"></button>
+                        <button class="color-btn green" data-color="green" aria-label="Green"></button>
+                    </div>
+                    <button class="verify-btn" id="verifyBtn" aria-label="Verify captcha">Verify</button>
+                    <div class="verification-status" id="verifyStatus" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 2: SETUP PROFIL (BAHARU)                              -->
+        <!-- ============================================================ -->
+        <div id="profileSetupPage" class="page" role="region" aria-labelledby="profile-title">
+            <div class="page-header">
+                <h2 id="profile-title">👤 Set Up Your Profile</h2>
+            </div>
+
+            <div class="profile-setup-container">
+                <form id="profileForm" class="profile-form" aria-label="Profile setup form">
+                    <div class="form-group">
+                        <label for="profileName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="profileName" placeholder="e.g. John Doe" required aria-required="true" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profileUsername">Username <span class="required">*</span></label>
+                        <input type="text" id="profileUsername" placeholder="e.g. @john123" required aria-required="true" pattern="@[A-Za-z0-9]+" title="Username must start with @ and contain only letters and numbers, no spaces" />
+                        <small style="color:#888; font-size:12px;">Must start with @ and contain only letters &amp; numbers (no spaces).</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profileAge">Age <span class="required">*</span></label>
+                        <select id="profileAge" required aria-required="true">
+                            <option value="">Select Age</option>
+                            <option value="Minor">Minor</option>
+                            <option value="Adult">Adult</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profileGender">Gender <span class="required">*</span></label>
+                        <select id="profileGender" required aria-required="true">
+                            <option value="">Select Gender</option>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profileRegion">Region <span class="required">*</span></label>
+                        <select id="profileRegion" required aria-required="true">
+                            <option value="">Select Region</option>
+                            <option value="North America">North America</option>
+                            <option value="South America">South America</option>
+                            <option value="Asia">Asia</option>
+                            <option value="Europe">Europe</option>
+                            <option value="Africa">Africa</option>
+                            <option value="Oceania">Oceania</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profileDiscordUser">Discord Username <span class="optional">(optional)</span></label>
+                        <input type="text" id="profileDiscordUser" placeholder="e.g. john#1234" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="profileDiscordId">Discord ID <span class="optional">(optional)</span></label>
+                        <input type="text" id="profileDiscordId" placeholder="e.g. 123456789012345678" />
+                    </div>
+
+                    <button type="submit" class="btn-save-profile" id="saveProfileBtn" aria-label="Save profile">💾 Save Profile</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 3: UTAMA (HOME)                                      -->
+        <!-- ============================================================ -->
+        <div id="homePage" class="page" role="region" aria-labelledby="home-title">
+            <div class="home-header">
+                <h1 id="home-title">✈️ ChillHub Community</h1>
+                <div class="sub-title">ChillHub Information Centre</div>
+                <div class="greeting" id="greetingMessage"></div>
+            </div>
+
+            <div class="home-desc">
+                <p><strong>ChillHub Community</strong> is a Multifunctional Community where you can have <strong>Fun</strong> &amp; <strong>Learn</strong> at the same time!</p>
+
+                <div class="offer-list">
+                    <p><strong>What do we offer?</strong></p>
+                    <ul>
+                        <li>🥳 &nbsp; Fun Event and Sometimes Giveaway</li>
+                        <li>✨ &nbsp; New Structural Community with a bunch of Major Updates</li>
+                        <li>🎓 &nbsp; "Academy Society" which not only we having fun and discuss about it also learn from it.</li>
+                        <li>🌐 &nbsp; Safe and Welcoming Community! I guarantee that when you came in some people will greet you!</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 5 BUTANG UTAMA -->
+            <div class="home-actions">
+                <button class="btn-home" data-page="chrpgPage">📜 ChillHub Community Regulations</button>
+                <button class="btn-home" data-page="chstaffPage">👥 ChillHub Authorized Authorities</button>
+                <button class="btn-home" data-page="reviewsPage">⭐ ChillHub Feedback &amp; Review</button>
+                <button class="btn-home" data-page="reportPage">⚖️ ChillHub Report &amp; Appeal</button>
+                <a href="https://discord.gg/a9TedASTFz" target="_blank" class="btn-home" rel="noopener noreferrer">🔗 Join ChillHub Community</a>
+            </div>
+
+            <div class="footer-note">© 2026 ChillHub SecEra</div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 4: ABOUT & FAQ (GABUNGAN)                             -->
+        <!-- ============================================================ -->
+        <div id="aboutFaqPage" class="page" role="region" aria-labelledby="about-title">
+            <div class="page-header">
+                <h2 id="about-title">ℹ️ ChillHub About &amp; FAQ</h2>
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">← Home</button>
+            </div>
+
+            <div class="about-faq-container">
+                <section class="about-section" aria-labelledby="about-sub">
+                    <h3 id="about-sub">❓ About ChillHub</h3>
+                    <p>
+                        The original ChillHub Community was founded in 2025. Unfortunately, it was heavily raided, making it impossible to continue safely. Instead of giving up, we rebuilt the community from the ground up with stronger security and a fresh start with <strong>ChillHub SecEra of 2026</strong> where your journey starts here.
+                    </p>
+                </section>
+
+                <section class="faq-section" aria-labelledby="faq-sub">
+                    <h3 id="faq-sub">❓ ChillHub FAQ</h3>
+                    <div class="faq-container">
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">What is ChillHub Community?</button>
+                            <div class="faq-answer">
+                                ChillHub Community is a multi-purpose Discord community where you can have fun, make new friends, and learn through our different societies in a safe and welcoming environment.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">How do I report a member or appeal a punishment?</button>
+                            <div class="faq-answer">
+                                Open a ticket in our Support/Ticket channel first. Our staff will then provide you with the official Report or Appeal form and guide you through the process.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">Why can't I access all channels?</button>
+                            <div class="faq-answer">
+                                You need to verify your account in our Verification channel first. Once verified, you'll be able to access the rest of the server.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">How can I become a staff member?</button>
+                            <div class="faq-answer">
+                                Open a ticket and let our staff know you'd like to become a staff member. We'll provide you with the Staff Application Form to complete. All applications are reviewed before a decision is made.
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">How many societies does ChillHub Community have?</button>
+                            <div class="faq-answer">
+                                We currently have three societies:
+                                <ul style="margin-top: 6px; list-style: none; padding-left: 0;">
+                                    <li>🎮 Gaming Academy Society</li>
+                                    <li>🎨 Art Academy Society</li>
+                                    <li>♟️ Chess Academy Society</li>
+                                </ul>
+                                Each society has its own activities where you can learn, improve your skills, and meet people with similar interests.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div style="text-align:center; margin-top:30px;">
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">🏠 Back to Home</button>
+            </div>
+            <div class="footer-note">© 2026 ChillHub SecEra</div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 5: PERATURAN (CHRPG) – LENGKAP A1–A10 + B1–B4 + C1–C2 -->
+        <!-- ============================================================ -->
+        <div id="chrpgPage" class="page" role="region" aria-labelledby="rules-title">
+            <div class="page-header">
+                <h2 id="rules-title">📜 ChillHub Community Regulations</h2>
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">← Home</button>
+            </div>
+
+            <div class="rules-container">
+                <!-- A | Rule Enforcement -->
+                <div class="rules-section-header">
+                    <h2 class="section-enforcement">A | Rule Enforcement</h2>
+                </div>
+                <!-- A1 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A1</span> 🌐 Server Compliance</h3>
+                    <ul>
+                        <li>You Must Follow All Server Regulations and Discord Terms of Service.</li>
+                        <li>No Rule Bypassing or Exploiting Loopholes, Using Alt Accounts to Avoid Punishment, External Abuse Targeting This Server or Members.</li>
+                    </ul>
+                </div>
+                <!-- A2 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A2</span> ⛔ Restricted Content</h3>
+                    <ul>
+                        <li>No Inappropriate, Prohibited, Harmful and Unauthorized Content allowed.</li>
+                        <li>No NSFW or Adult Content, Hate Speech or Discrimination, Violence or Gore Content, Illegal Content, Malware or Harmful Files.</li>
+                    </ul>
+                </div>
+                <!-- A3 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A3</span> 💬 Chat Conduct</h3>
+                    <ul>
+                        <li>You Must Keep Conversations Respectful and Use the Proper Channels.</li>
+                        <li>No Spam or Flooding, Harassment or Toxic Behavior and No Excessive Profanity.</li>
+                    </ul>
+                </div>
+                <!-- A4 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A4</span> 🗣️ Voice Conduct</h3>
+                    <ul>
+                        <li>You Must Respect Everyone in Voice Channels and Keep Your Microphone Clear.</li>
+                        <li>No Mic Spamming, Excessive Background Noise and No Interrupting or Talking Over Others.</li>
+                    </ul>
+                </div>
+                <!-- A5 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A5</span> 📣 Advertisement</h3>
+                    <ul>
+                        <li>No Unauthorized Advertising, Mass DM Advertising, Server Invite Spam.</li>
+                        <li>No Self-Promotion or Commercial Promotions without Permission.</li>
+                    </ul>
+                </div>
+                <!-- A6 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A6</span> 🛡 Security &amp; Privacy</h3>
+                    <ul>
+                        <li>You Must Protect Your Personal Information and Report Suspicious Activity.</li>
+                        <li>No Scams or Phishing, Sharing Malware or Malicious Files/Link and No Doxxing or Privacy Violations.</li>
+                    </ul>
+                </div>
+                <!-- A7 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A7</span> 🛠 Staff &amp; Authority</h3>
+                    <ul>
+                        <li>You Must Respect Staff Members and Follow Staff Instructions.</li>
+                        <li>No Staff Impersonation, Harassment or Abuse and No Bypassing Staff Decisions.</li>
+                    </ul>
+                </div>
+                <!-- A8 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A8</span> 🏅 Event Conduct</h3>
+                    <ul>
+                        <li>You Must Follow the Event Rules and Respect the Event Host.</li>
+                        <li>No Cheating or Exploiting, Disrupting the Event and No Harassment During Events.</li>
+                    </ul>
+                </div>
+                <!-- A9 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A9</span> ⚖️ Moderation Enforcement</h3>
+                    <ul>
+                        <li>You Must Accept The Escalation System via Moderation Policy Decisions and Cooperate With Staff.</li>
+                        <li>Appeal System are allowed through designated channels and form.</li>
+                        <li>No Evading Punishments, False Reports and Don't Arguing About Moderation in Public Channels.</li>
+                    </ul>
+                </div>
+                <!-- A10 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">A10</span> 🏛 Final Authority</h3>
+                    <ul>
+                        <li>You Must Accept That ChillHub Management Team Have Final Say.</li>
+                        <li>No Disputing Final Decisions Publicly, Refusing to Comply With Final Rulings and No Manipulating Rules to Challenge Decisions.</li>
+                    </ul>
+                </div>
+
+                <!-- B | Policy Enforcement -->
+                <div class="rules-section-header">
+                    <h2 class="section-enforcement">B | Policy Enforcement</h2>
+                </div>
+                <!-- B1 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">B1</span> 🛡️ Moderation Policy</h3>
+                    <ul>
+                        <li>This server follows a four-strike system: Verbal Warning → 24-Hour Mute → 3-Day Mute → Permanent Ban.</li>
+                        <li>Severe violations or Discord Terms of Service breaches may result in an immediate permanent ban without warning.</li>
+                        <li>All moderation actions are sent via DM.</li>
+                    </ul>
+                </div>
+                <!-- B2 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">B2</span> 🤝🏼 Partnership Policy</h3>
+                    <ul>
+                        <li>Partnerships are only available for active servers with 50+ human members.</li>
+                        <li>Must follow Discord's Terms of Service, maintain a positive community, and meet all partnership requirements.</li>
+                    </ul>
+                </div>
+                <!-- B3 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">B3</span> 🔔 Social Notify Policy</h3>
+                    <ul>
+                        <li>Only TikTok, YouTube, and Twitch creators are eligible.</li>
+                        <li>Accounts must have 50+ followers/subscribers, upload regularly, maintain an active audience, and comply with Discord's Terms of Service.</li>
+                    </ul>
+                </div>
+                <!-- B4 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">B4</span> 🌟 VIP Policy</h3>
+                    <ul>
+                        <li>The VIP role is earned through selected events and giveaways.</li>
+                        <li>VIP is a privilege, not an exemption from the rules.</li>
+                        <li>Misuse of the role may result in its removal and further moderation action.</li>
+                    </ul>
+                </div>
+
+                <!-- C | Guidelines Enforcement -->
+                <div class="rules-section-header">
+                    <h2 class="section-enforcement">C | Guidelines Enforcement</h2>
+                </div>
+                <!-- C1 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">C1</span> 💡 Suggestions Post Guidelines</h3>
+                    <ul>
+                        <li>All suggestions must follow server rules.</li>
+                        <li>Use proper tags and include a clear explanation.</li>
+                        <li>Avoid hate speech and do not tag other users without their consent.</li>
+                    </ul>
+                </div>
+                <!-- C2 -->
+                <div class="rule-block">
+                    <h3><span class="rule-tag">C2</span> 🎨 Art Gallery Post Guidelines</h3>
+                    <ul>
+                        <li>All artwork must be appropriate and properly credited.</li>
+                        <li>Post with the correct tags and share with permission.</li>
+                        <li>Respect artists and server rules at all times.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:30px;">
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">🏠 Back to Home</button>
+            </div>
+            <div class="footer-note">© 2026 ChillHub SecEra</div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 6: STAFF (CHSTAFF)                                    -->
+        <!-- ============================================================ -->
+        <div id="chstaffPage" class="page" role="region" aria-labelledby="staff-title">
+            <div class="page-header">
+                <h2 id="staff-title">👥 ChillHub Authorized Authorities</h2>
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">← Home</button>
+            </div>
+
+            <div class="staff-container">
+                <div class="staff-section">
+                    <h3>| A | ChillHub Authorized Team</h3>
+                    <div class="staff-grid">
+                        <div class="staff-card">
+                            <span class="staff-icon" aria-hidden="true">⚙️</span>
+                            <p><strong>Managed by</strong></p>
+                            <p class="staff-name">ChillHub Management Team (CMaT)</p>
+                        </div>
+                        <div class="staff-card">
+                            <span class="staff-icon" aria-hidden="true">🛡️</span>
+                            <p><strong>Moderated by</strong></p>
+                            <p class="staff-name">ChillHub Moderation Team (CMoT)</p>
+                        </div>
+                        <div class="staff-card">
+                            <span class="staff-icon" aria-hidden="true">🎭</span>
+                            <p><strong>Engaged by</strong></p>
+                            <p class="staff-name">ChillHub Engagement Team (CET)</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="staff-section">
+                    <h3>| B | ChillHub Authorized Committee</h3>
+                    <div class="committee-grid">
+                        <div class="committee-card">
+                            <h4>1 | Art Academy Committee</h4>
+                            <p>• Art • Competition • Gallery •</p>
+                            <p class="committee-desc">(Mostly about Art activities)</p>
+                        </div>
+                        <div class="committee-card">
+                            <h4>2 | Chess Academy Committee</h4>
+                            <p>• Chess • Tournament • Lesson •</p>
+                            <p class="committee-desc">(Mostly about Chess activities)</p>
+                        </div>
+                        <div class="committee-card">
+                            <h4>3 | Gaming Academy Committee</h4>
+                            <p>• Minecraft • Roblox • Among Us • Brawl Star • Random games</p>
+                            <p class="committee-desc">(Mostly about Gaming activities)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center; margin-top:30px;">
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">🏠 Back to Home</button>
+            </div>
+            <div class="footer-note">© 2026 ChillHub SecEra</div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 7: GAMES – ChillHub Minigames (UPDATED)               -->
+        <!-- ============================================================ -->
+        <div id="gamesPage" class="page" role="region" aria-labelledby="games-title">
+            <div class="page-header">
+                <h2 id="games-title">🎮 ChillHub Minigames</h2>
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">← Home</button>
+            </div>
+
+            <div class="games-tabs" role="tablist">
+                <button class="game-tab active" data-game="tictactoe" role="tab" aria-selected="true">❌ Tic-Tac-Toe</button>
+                <button class="game-tab" data-game="rps" role="tab" aria-selected="false">🪨 Rock Paper Scissors</button>
+                <button class="game-tab" data-game="numberguess" role="tab" aria-selected="false">🔢 Number Guessing</button>
+            </div>
+
+            <!-- Tic-Tac-Toe -->
+            <div id="tictactoeGame" class="game-content active" role="tabpanel">
+                <h3>❌ Tic-Tac-Toe vs AI</h3>
+                <p style="color:#888; font-size:14px; margin-bottom:12px;">You are <strong>X</strong> • AI is <strong>O</strong></p>
+                <div class="game-board" id="tttBoard" role="grid" aria-label="Tic-Tac-Toe board"></div>
+                <div class="game-status" id="tttStatus" aria-live="polite">Your turn</div>
+                <div class="game-score">
+                    <span>🏆 You: <span id="tttPlayerScore">0</span></span>
+                    <span>🤖 AI: <span id="tttAIScore">0</span></span>
+                    <span>🤝 Draws: <span id="tttDrawScore">0</span></span>
+                </div>
+                <button class="btn-game-reset" id="tttReset" aria-label="New Tic-Tac-Toe game">🔄 New Game</button>
+            </div>
+
+            <!-- Rock Paper Scissors -->
+            <div id="rpsGame" class="game-content" role="tabpanel">
+                <h3>🪨 Rock Paper Scissors vs AI</h3>
+                <div class="rps-choices">
+                    <button class="rps-btn" data-choice="rock" aria-label="Rock">🪨</button>
+                    <button class="rps-btn" data-choice="paper" aria-label="Paper">📄</button>
+                    <button class="rps-btn" data-choice="scissors" aria-label="Scissors">✂️</button>
+                </div>
+                <div class="game-status" id="rpsStatus" aria-live="polite">Choose your move!</div>
+                <div class="rps-score">
+                    <span>🏆 You: <span id="rpsPlayerScore">0</span></span>
+                    <span>🤖 AI: <span id="rpsComputerScore">0</span></span>
+                    <span>🤝 Draws: <span id="rpsDrawScore">0</span></span>
+                </div>
+                <button class="btn-game-reset" id="rpsReset" aria-label="New Rock Paper Scissors game">🔄 New Game</button>
+            </div>
+
+            <!-- Number Guessing (NEW) -->
+            <div id="numberguessGame" class="game-content" role="tabpanel">
+                <h3>🔢 Number Guessing</h3>
+                <div class="ng-mode-selector">
+                    <button class="ng-mode-btn active" data-mode="normal">🟢 Normal</button>
+                    <button class="ng-mode-btn" data-mode="medium">🟡 Medium</button>
+                    <button class="ng-mode-btn" data-mode="hard">🔴 Hard</button>
+                </div>
+                <div class="ng-game-area" id="ngGameArea">
+                    <div class="ng-info">
+                        <span>Range: <strong id="ngRange">1 – 50</strong></span>
+                        <span>⏱️ <span id="ngTimer">60</span>s</span>
+                        <span>🏆 Points: <span id="ngPoints">0</span></span>
+                    </div>
+                    <p id="ngHint">Guess the number!</p>
+                    <div class="ng-input-group">
+                        <input type="number" id="ngGuessInput" placeholder="Enter your guess" min="1" max="50" />
+                        <button id="ngGuessBtn">Guess</button>
+                    </div>
+                    <div id="ngMessage"></div>
+                    <button id="ngResetBtn" class="btn-game-reset">🔄 New Round</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 8: REVIEWS                                            -->
+        <!-- ============================================================ -->
+        <div id="reviewsPage" class="page" role="region" aria-labelledby="reviews-title">
+            <div class="page-header">
+                <h2 id="reviews-title">⭐ ChillHub Feedback &amp; Review</h2>
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">← Home</button>
+            </div>
+
+            <div class="reviews-container">
+                <div class="review-form-container">
+                    <h3>✍️ Write a Review</h3>
+                    <form id="reviewForm" aria-label="Review form">
+                        <div class="form-group">
+                            <label for="reviewRating">Rating <span class="required">*</span></label>
+                            <select id="reviewRating" required aria-required="true">
+                                <option value="5">⭐⭐⭐⭐⭐ (5)</option>
+                                <option value="4">⭐⭐⭐⭐ (4)</option>
+                                <option value="3">⭐⭐⭐ (3)</option>
+                                <option value="2">⭐⭐ (2)</option>
+                                <option value="1">⭐ (1)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewContent">Your Review <span class="required">*</span></label>
+                            <textarea id="reviewContent" rows="4" placeholder="Share your experience with ChillHub Community..." required aria-required="true"></textarea>
+                        </div>
+                        <button type="submit" class="btn-save-profile" id="submitReviewBtn" aria-label="Submit review">📤 Submit Review</button>
+                    </form>
+                </div>
+
+                <div class="reviews-list-container">
+                    <h3>📋 Community Reviews</h3>
+                    <div id="reviewsList" aria-live="polite"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 9: SETTINGS                                           -->
+        <!-- ============================================================ -->
+        <div id="settingsPage" class="page" role="region" aria-labelledby="settings-title">
+            <div class="page-header">
+                <h2 id="settings-title">⚙️ ChillHub Settings</h2>
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">← Home</button>
+            </div>
+
+            <div class="settings-container">
+                <!-- Profile Section -->
+                <div class="setting-section">
+                    <h3>👤 My Profile</h3>
+                    <div id="profileDisplay" class="profile-display">
+                        <p><strong>Name:</strong> <span id="displayName">—</span></p>
+                        <p><strong>Username:</strong> <span id="displayUsername">—</span></p>
+                        <p><strong>Age:</strong> <span id="displayAge">—</span></p>
+                        <p><strong>Gender:</strong> <span id="displayGender">—</span></p>
+                        <p><strong>Region:</strong> <span id="displayRegion">—</span></p>
+                        <p><strong>Discord:</strong> <span id="displayDiscord">Not set</span></p>
+                        <p><strong>Discord ID:</strong> <span id="displayDiscordId">Not set</span></p>
+                        <p><strong>🏆 Score:</strong> <span id="displayScore">0</span></p>
+                        <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                            <button class="btn-home-small" id="editProfileBtn" aria-label="Edit profile">✏️ Edit Profile</button>
+                            <button class="btn-home-small" id="deleteDataBtn" style="border-color:#ef5350; color:#ef5350;" aria-label="Delete all data">🗑️ Delete All Data</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theme -->
+                <div class="setting-item">
+                    <span class="setting-label">🌓 Theme</span>
+                    <button class="setting-toggle" id="themeToggle" aria-label="Toggle theme">Dark</button>
+                    <span class="setting-desc">Switch between Dark and Light mode.</span>
+                </div>
+
+                <!-- Changelog Section -->
+                <div class="setting-section">
+                    <h3>📋 Changelog</h3>
+                    <div id="changelogList" class="changelog-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================================ -->
+        <!-- HALAMAN 10: REPORT & APPEAL (COMING SOON)                    -->
+        <!-- ============================================================ -->
+        <div id="reportPage" class="page" role="region" aria-labelledby="report-title">
+            <div class="page-header">
+                <h2 id="report-title">⚖️ ChillHub Report &amp; Appeal</h2>
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">← Home</button>
+            </div>
+
+            <div class="coming-soon">
+                <div class="coming-soon-icon" aria-hidden="true">🚧</div>
+                <h3>Coming Soon</h3>
+                <p>We are currently building a dedicated system for reports and appeals. Please check back later.</p>
+                <p style="margin-top:12px; font-size:15px; color:#888;">In the meantime, you can reach out to staff via designated channels.</p>
+            </div>
+
+            <div style="text-align:center; margin-top:30px;">
+                <button class="btn-home-small" data-page="homePage" aria-label="Back to Home">🏠 Back to Home</button>
+            </div>
+            <div class="footer-note">© 2026 ChillHub SecEra</div>
+        </div>
+
+    </div> <!-- end .container -->
+
+    <!-- ============================================================ -->
+    <!-- Service Worker Registration (PWA)                              -->
+    <!-- ============================================================ -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('✅ Service Worker registered'))
+                .catch(() => console.log('❌ Service Worker registration failed'));
+        }
+    </script>
+
+    <!-- JavaScript -->
+    <script src="script.js" defer></script>
 
 </body>
 </html>
