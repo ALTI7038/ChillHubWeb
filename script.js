@@ -1,7 +1,8 @@
 // ================================================================
-//  SCRIPT.JS – ChillHub Community (Minigames Update)
+//  SCRIPT.JS – ChillHub Community (General Update)
 //  Fungsi: Captcha, profil, navigasi, games (Tic-Tac-Toe, RPS,
-//          Number Guessing), reviews, settings, changelog
+//          Number Guessing), reviews (klik untuk tunjuk edit/delete),
+//          settings, changelog
 // ================================================================
 
 // Tunggu sehingga DOM siap sepenuhnya
@@ -46,6 +47,8 @@ document.addEventListener('DOMContentLoaded', function() {
         profile: null,
         // Review
         editingReviewId: null,
+        // For review click-to-show-actions
+        activeReviewId: null,
     };
 
     // ================================================================
@@ -1030,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ---- Number Guessing Game (NEW) ----
+    // ---- Number Guessing Game ----
     const NG_MODES = {
         normal: { min: 1, max: 50, time: 60, points: 1, label: 'Normal', color: 'green' },
         medium: { min: 1, max: 100, time: 30, points: 2, label: 'Medium', color: 'yellow' },
@@ -1038,9 +1041,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     function initNumberGuessing() {
-        // Set default mode
         setNGMode('normal');
-        // Event listeners
         elements.ngModeBtns.forEach(btn => {
             btn.addEventListener('click', function() {
                 const mode = this.dataset.mode;
@@ -1056,7 +1057,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         elements.ngResetBtn.addEventListener('click', resetNGame);
-        // Start first round
         resetNGame();
     }
 
@@ -1074,7 +1074,6 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.ngRangeDisplay.textContent = `${config.min} – ${config.max}`;
         elements.ngGameArea.className = 'ng-game-area';
         elements.ngGameArea.classList.add(`mode-${mode}`);
-        // Reset points (local session)
         STATE.ngPoints = 0;
         elements.ngPointsDisplay.textContent = '0';
         elements.ngTimerDisplay.textContent = config.time;
@@ -1101,8 +1100,6 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.ngHintDisplay.textContent = `Guess a number between ${config.min} and ${config.max}`;
         elements.ngMessageDisplay.textContent = '';
         elements.ngMessageDisplay.style.color = '';
-        // Reset session points only if not already reset
-        // We keep session points across rounds, so don't reset here.
         startNGTimer();
     }
 
@@ -1154,7 +1151,6 @@ document.addEventListener('DOMContentLoaded', function() {
             elements.ngGuessBtn.disabled = true;
             STATE.ngPoints += STATE.ngPointValue;
             elements.ngPointsDisplay.textContent = STATE.ngPoints;
-            // Update profile score
             const profile = loadProfile();
             if (profile) {
                 profile.score = (profile.score || 0) + STATE.ngPointValue;
@@ -1174,7 +1170,7 @@ document.addEventListener('DOMContentLoaded', function() {
         elements.ngGuessInput.focus();
     }
 
-    // ---- Game Tabs & Initialization ----
+    // ---- Game Tabs ----
     function initGames() {
         const activeTab = document.querySelector('.game-tab.active');
         if (activeTab) {
@@ -1194,7 +1190,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Update game tab event listeners
     elements.gameTabs.forEach(tab => {
         tab.addEventListener('click', function() {
             const game = this.dataset.game;
@@ -1212,14 +1207,13 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (game === 'rps') {
                 initRPS();
             } else if (game === 'numberguess') {
-                // Ensure Number Guessing is ready
                 resetNGame();
             }
         });
     });
 
     // ================================================================
-    //  13. REVIEWS
+    //  13. REVIEWS – dengan klik untuk tunjuk Edit/Delete
     // ================================================================
 
     function loadReviews() {
@@ -1259,7 +1253,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const stars = '⭐'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
             const isOwn = username && review.username === username;
             html += `
-                <div class="review-item">
+                <div class="review-item" data-review-id="${review.id}">
                     <div class="review-header">
                         <span class="review-author">${review.name || review.username || 'Anonymous'}</span>
                         <span class="review-stars">${stars}</span>
@@ -1267,6 +1261,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="review-text">${review.text}</div>
                     <div class="review-date">${review.date || ''}</div>
                     ${isOwn ? `
+                        <span class="click-hint">Click to show actions</span>
                         <div class="review-actions">
                             <button class="edit-btn" data-id="${review.id}">✏️ Edit</button>
                             <button class="delete-btn" data-id="${review.id}">🗑️ Delete</button>
@@ -1277,8 +1272,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         list.innerHTML = html;
 
+        // ---------- TOGGLE REVIEW ACTIONS ON CLICK ----------
+        list.querySelectorAll('.review-item').forEach(item => {
+            const actions = item.querySelector('.review-actions');
+            // Only add click listener if actions exist (own review)
+            if (actions) {
+                item.addEventListener('click', function(e) {
+                    // Don't toggle if clicking on a button inside actions
+                    if (e.target.closest('button')) return;
+                    
+                    // Close other open actions
+                    list.querySelectorAll('.review-item .review-actions.show').forEach(el => {
+                        if (el !== actions) el.classList.remove('show');
+                    });
+                    
+                    // Toggle this one
+                    actions.classList.toggle('show');
+                });
+            }
+        });
+
+        // ---------- EDIT BUTTON ----------
         list.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent toggle
                 const id = parseInt(this.dataset.id);
                 const review = reviews.find(r => r.id === id);
                 if (review) {
@@ -1292,8 +1309,10 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
 
+        // ---------- DELETE BUTTON ----------
         list.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function(e) {
+                e.stopPropagation(); // Prevent toggle
                 const id = parseInt(this.dataset.id);
                 if (confirm('Are you sure you want to delete this review?')) {
                     let reviewsData = getLocalData('chillhub_reviews', []);
@@ -1306,6 +1325,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Submit / Update review
     if (elements.reviewForm) {
         elements.reviewForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -1367,15 +1387,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const CHANGELOG_DATA = [
         {
             date: 'Jul 2026',
+            title: '📢 General Update',
+            changes: [
+                'New WhatsApp button on Homepage',
+                'Updated Discord button text',
+                'New description and "What do we offer?" content',
+                'Reviews: Click to show Edit/Delete buttons',
+            ],
+            badge: 'New'
+        },
+        {
+            date: 'Jul 2026',
             title: '🎮 Minigames Update',
             changes: [
                 'Added Number Guessing game',
-                '3 modes: Normal (1-50, 60s, 1pt), Medium (1-100, 30s, 2pts), Hard (1-500, 15s, 5pts)',
+                '3 modes: Normal, Medium, Hard',
                 'Color-coded backgrounds for each mode',
                 'Higher/Lower hints',
                 'Points added to profile score',
             ],
-            badge: 'New'
+            badge: ''
         },
         {
             date: 'Jul 2026',
@@ -1559,7 +1590,7 @@ document.addEventListener('DOMContentLoaded', function() {
             updateGreeting();
         }
 
-        console.log('✅ ChillHub Community (Minigames Update) loaded successfully.');
+        console.log('✅ ChillHub Community (General Update) loaded successfully.');
     }
 
     // ================================================================
